@@ -7,7 +7,7 @@ import { gapi } from "gapi-script";
 import { NotificationManager } from "react-notifications";
 
 const clientId =
-  "303534488692-j3po176f2vf938bal338s5khv48mclqm.apps.googleusercontent.com";
+  "303534488692-v5rbq96al7glj6jprkee3omtdbg3866g.apps.googleusercontent.com";
 export default function LoginGoogle() {
   const dispatch = useDispatch();
 
