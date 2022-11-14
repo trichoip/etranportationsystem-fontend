@@ -143,7 +143,7 @@ function FilterCar({
                       />
                     </div>
                     <span>4 chỗ</span>
-                    <span className="extra-info">(01 xe)</span>
+                    <span className="extra-info"></span>
                   </label>
                 </div>
                 <div className="squaredFour have-label">
@@ -163,7 +163,7 @@ function FilterCar({
                       />
                     </div>
                     <span>5 chỗ</span>
-                    <span className="extra-info">(01 xe)</span>
+                    <span className="extra-info"></span>
                   </label>
                 </div>
                 <div className="squaredFour have-label">
@@ -183,7 +183,7 @@ function FilterCar({
                       />
                     </div>
                     <span>7 chỗ</span>
-                    <span className="extra-info">(01 xe)</span>
+                    <span className="extra-info"></span>
                   </label>
                 </div>
               </div>
@@ -268,8 +268,8 @@ function FilterCar({
                 <div className="range-slider">
                   <input
                     type="range"
-                    min={2000}
-                    max={2030}
+                    min={1990}
+                    max={2022}
                     val={valYear}
                     onInput={inputHandlerYear}
                     style={{
