@@ -23,7 +23,7 @@ function Search() {
   const [transmission, setTransmission] = useState("");
   const [fuel, setFuel] = useState("");
   const [val, setVal] = useState({ min: 0, max: 3000 });
-  const [valYear, SetValYear] = useState(2000);
+  const [valYear, SetValYear] = useState(1990);
   useEffect(
     () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -35,7 +35,7 @@ function Search() {
         [val.min, val.max],
         seats.map((s) => parseInt(s.id)),
         fuel,
-        [valYear, 3000],
+        [valYear, 2022],
         transmission,
         brandId,
         carModel.map((c) => parseInt(c.id)),
@@ -55,7 +55,7 @@ function Search() {
             priceBetween: [val.min, val.max],
             seatsIn: seats.map((s) => parseInt(s.id)),
             fuel,
-            yearOfManufactureBetween: [valYear, 3000],
+            yearOfManufactureBetween: [valYear, 2022],
             transmission,
             brand_Id: brandId,
             model_Id_In: carModel.map((c) => c.id),
