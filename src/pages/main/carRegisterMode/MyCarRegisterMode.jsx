@@ -2,9 +2,9 @@ import React from "react";
 import { FaCar } from "react-icons/fa";
 import { HiOutlineViewGridAdd } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import CarRegister from "./carRegister";
 import styles from "./CarRegisterMode.module.css";
-function CarRegisterMode() {
+import MyCar from "./mycars";
+function MyCarRegisterMode() {
   return (
     <div
       style={{
@@ -13,9 +13,7 @@ function CarRegisterMode() {
     >
       <nav className={styles.tabs}>
         <ul>
-          <li
-            className={`${styles["tab-list-item"]} ${styles["tab-list-active"]}`}
-          >
+          <li className={`${styles["tab-list-item"]}`}>
             <HiOutlineViewGridAdd />
             <Link
               to="/carRegisterMode"
@@ -25,7 +23,9 @@ function CarRegisterMode() {
               Đăng ký xe
             </Link>
           </li>
-          <li className={`${styles["tab-list-item"]}`}>
+          <li
+            className={`${styles["tab-list-item"]} ${styles["tab-list-active"]}`}
+          >
             <FaCar />
             <Link
               to="/myCarRegisterMode"
@@ -39,11 +39,11 @@ function CarRegisterMode() {
       </nav>
       <section className={styles.dashboard_part}>
         <div className={styles.main_content}>
-          <CarRegister />
+          <MyCar />
         </div>
       </section>
     </div>
   );
 }
 
-export default CarRegisterMode;
+export default MyCarRegisterMode;

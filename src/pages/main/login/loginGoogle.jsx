@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 import { postLoginSuccess } from "../../../store/actions/user.action";
 import { gapi } from "gapi-script";
 import { NotificationManager } from "react-notifications";
+import { useHistory } from "react-router-dom";
 
 const clientId =
   "303534488692-v5rbq96al7glj6jprkee3omtdbg3866g.apps.googleusercontent.com";
 export default function LoginGoogle() {
   const dispatch = useDispatch();
-
+  let history = useHistory();
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -37,7 +38,7 @@ export default function LoginGoogle() {
         localStorage.setItem("userLogin", JSON.stringify(jwtToken.data));
       }
       dispatch(postLoginSuccess(jwtToken.data));
-      console.log(JSON.stringify(res));
+      history.push("/");
     } catch (err) {
       NotificationManager.error("Account has been blocked!!!");
     }

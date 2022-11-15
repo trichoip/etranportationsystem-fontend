@@ -330,7 +330,7 @@ function CarDetail() {
                 <div className="rent-box rent-car" id="booking-sidebar">
                   <div className="price">
                     <h3>
-                      {carDetail.price} <span> / ngày</span>
+                      {carDetail.price}K <span> / ngày</span>
                     </h3>
                   </div>
                   <div className="line-form has-timer">
@@ -605,11 +605,11 @@ function CarDetail() {
                     </div>
                   </div>
                   <div className="wr-wrap-btn">
-                    <div className="wrap-btn">
+                    {/* <div className="wrap-btn">
                       <Link to="#" className="btn btn-default btn--m">
                         Báo xấu (updated soon)
                       </Link>
-                    </div>
+                    </div> */}
                     <div className="wrap-btn">
                       {isLogin || checkLike ? (
                         <>

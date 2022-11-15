@@ -1,22 +1,22 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import CarSearch from "./CarSearch";
 import FilterCar from "./FilterCar";
 import NavSearch from "./NavSearch";
 
 function Search() {
   const listInnerRef = useRef();
-  const { cityId } = useSelector((state) => state.user);
+  // const { cityId } = useSelector((state) => state.user);
+  const [cityId, setCityId] = useState(0);
   const [page, setPage] = useState(1);
-  const [test, setTest] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [carList, setCarList] = useState([]);
   const [brandList, setBrandList] = useState([]);
   const [carModels, setCarModels] = useState([]);
   const [carModel, setCarModel] = useState([]);
   const [brandId, setBrandId] = useState(0);
-  const [loadingInfo, setLoadingInfo] = useState(false);
   const [features, setFeatures] = useState([]);
   const [seats, setSeatsIn] = useState([]);
   const [priceType, setPriceType] = useState("ALL");
@@ -27,22 +27,8 @@ function Search() {
   useEffect(
     () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      console.log(
-        "-----",
-        cityId,
-        "",
-        priceType,
-        [val.min, val.max],
-        seats.map((s) => parseInt(s.id)),
-        fuel,
-        [valYear, 2022],
-        transmission,
-        brandId,
-        carModel.map((c) => parseInt(c.id)),
-        features.map((f) => f.id)
-      );
       const getAccountInfo = async () => {
-        setLoadingInfo(true);
+        setLoading(true);
         axios({
           method: "POST",
           url: `${process.env.REACT_APP_API_URL}/car/search?page=${page}&size=6`,
@@ -63,16 +49,11 @@ function Search() {
           },
         })
           .then((res) => {
-            console.log("=", test);
-
-            test && setCarList([]);
-            console.log("==", carList);
             setCarList([...carList, ...res.data.contends]);
             setBrandList(res.data.carBrands);
             setCarModels(res.data.carModels);
             setTotalPages(res.data.totalPage);
-            setLoadingInfo(false);
-            setTest(false);
+            setLoading(false);
           })
           .catch((err) => {
             console.error(err);
@@ -95,26 +76,7 @@ function Search() {
       carModel,
     ]
   );
-  // useEffect(
-  //   () => {
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //     setTest(true);
-  //     setPage(1);
-  //     setCarList([]);
-  //   },
-  //   // eslint-disable-next-line
-  //   [
-  //     cityId,
-  //     priceType,
-  //     features,
-  //     val,
-  //     seats,
-  //     valYear,
-  //     transmission,
-  //     fuel,
-  //     brandId,
-  //   ]
-  // );
+
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
@@ -135,13 +97,17 @@ function Search() {
         paddingTop: "60px",
       }}
     >
-      <NavSearch />
+      <NavSearch
+        setCityId={setCityId}
+        setPage={setPage}
+        setCarList={setCarList}
+      />
       {cityId !== 0 ? (
         <CarSearch
           carList={carList}
           onScroll={onScroll}
           listInnerRef={listInnerRef}
-          loadingInfo={loadingInfo}
+          loading={loading}
         />
       ) : (
         <div
@@ -184,6 +150,8 @@ function Search() {
         carModels={carModels}
         setCarModel={setCarModel}
         carModel={carModel}
+      // loadingInfo={loadingInfo}
+      // setLoadingInfo={setLoadingInfo}
       />
     </section>
   );

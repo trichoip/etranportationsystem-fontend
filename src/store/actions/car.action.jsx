@@ -32,8 +32,8 @@ export const saveCar = (car, history) => {
     })
       .then((res) => {
         dispatch(stopLoading());
-        history.push("/");
-        NotificationManager.success("Car was add successfully");
+        history.push("/myCarRegisterMode");
+        NotificationManager.success("Xe đã được thêm thành công");
       })
       .catch((err) => {
         dispatch(stopLoading());
@@ -117,11 +117,7 @@ export const updateCarAct = (updateCar, carDetail) => {
           type: SET_UPDATE_FEATURES,
           payload: [],
         });
-        updateCar.carImagesUpdate.length > 0
-          ? NotificationManager.success("Cập nhật xe thành công")
-          : NotificationManager.error(
-              "Xe bắt buộc phải có nhiều hơn 3 hình ảnh"
-            );
+        NotificationManager.success("Cập nhật xe thành công");
       })
       .catch((err) => {
         dispatch(stopLoading());

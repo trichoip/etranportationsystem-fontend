@@ -290,6 +290,8 @@ function FilterCar({
                   <select
                     onChange={(e) => {
                       setFuel(e.target.value);
+                      setPage(1);
+                      setCarList([]);
                     }}
                   >
                     <option value="">Tất cả</option>

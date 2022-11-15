@@ -21,35 +21,37 @@ function CarRegister() {
   };
 
   return (
-    <div className="module-register" style={{ padding: 0 }}>
-      <Tabs>
-        <div label="Thông tin" number="1">
-          <SelfDriveMot features={features} setFeatures={setFeatures} />
+    <div className="body has-filter">
+      <div className="module-register" style={{ paddingTop: "50px" }}>
+        <Tabs>
+          <div label="Thông tin" number="1">
+            <SelfDriveMot features={features} setFeatures={setFeatures} />
+          </div>
+          <div label="Cho thuê" number="2">
+            <SelfDriveHai />
+          </div>
+          <div label="Hình ảnh" number="3">
+            <SelfDriveBa carImages={carImages} setCarImage={setCarImage} />
+          </div>
+        </Tabs>
+        <div className="wrap-btn has-2btn">
+          <div className="wr-btn">
+            <Link to="#" className="btn btn-secondary btn--m">
+              Quay lại
+            </Link>
+          </div>
+          <div className="wr-btn">
+            <button
+              className="btn btn-primary btn--m"
+              onClick={onSaveCar}
+              disabled={loading}
+            >
+              {!loading ? <span> Đăng kí</span> : <Load isSmall={true} />}
+            </button>
+          </div>
         </div>
-        <div label="Cho thuê" number="2">
-          <SelfDriveHai />
-        </div>
-        <div label="Hình ảnh" number="3">
-          <SelfDriveBa carImages={carImages} setCarImage={setCarImage} />
-        </div>
-      </Tabs>
-      <div className="wrap-btn has-2btn">
-        <div className="wr-btn">
-          <Link to="#" className="btn btn-secondary btn--m">
-            Quay lại
-          </Link>
-        </div>
-        <div className="wr-btn">
-          <button
-            className="btn btn-primary btn--m"
-            onClick={onSaveCar}
-            disabled={loading}
-          >
-            {!loading ? <span> Đăng kí</span> : <Load isSmall={true} />}
-          </button>
-        </div>
+        <NotificationContainer />
       </div>
-      <NotificationContainer />
     </div>
   );
 }

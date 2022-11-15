@@ -1,17 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { CITY_ID } from "../../store/constants/user.const";
 import { street } from "../Modal/vietnam-streetV2";
 
-function NavSearch() {
-  const dispatch = useDispatch();
-
-  const handleChangeCityId = (id) => {
-    dispatch({
-      type: CITY_ID,
-      payload: parseInt(id),
-    });
-  };
+function NavSearch({ setCityId, setPage, setCarList }) {
   return (
     <>
       <div
@@ -25,7 +15,9 @@ function NavSearch() {
               <select
                 name="cityId"
                 onChange={(e) => {
-                  handleChangeCityId(e.target.value);
+                  setCityId(e.target.value);
+                  setPage(1);
+                  setCarList([]);
                 }}
               >
                 <option value={0}>Chọn thành phố</option>

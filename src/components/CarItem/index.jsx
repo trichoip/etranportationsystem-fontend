@@ -54,9 +54,9 @@ function CarItem({ listCar, setHandleGrant }) {
           )}
           <div className="car-img">
             <div className="fix-img">
-              <a href="/car/bmw-520i-2017/KLAQ2V">
+              <Link to={`/car-detail/${listCar.id}`}>
                 <img src={listCar.carImage} alt={listCar.name} />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

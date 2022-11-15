@@ -1,23 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { useIsLogin } from "../../hooks/useIsLogin";
-import { OPEN_MODAL } from "../../store/constants/modal.const";
+import { Link } from "react-router-dom";
 import Load from "../Load";
-import LoginModal from "../Modal/LoginModal";
 
-function CarSearch({ carList, onScroll, listInnerRef, loadingInfo }) {
-  const dispatch = useDispatch();
-  let history = useHistory();
-  const { isLogin } = useIsLogin();
-  const onLogin = (id) => {
-    isLogin
-      ? history.push(`/car-detail/${id}`)
-      : dispatch({
-          type: OPEN_MODAL,
-          payload: <LoginModal />,
-        });
-  };
+function CarSearch({ carList, onScroll, listInnerRef, loading }) {
   return (
     <div className="module-map">
       <div className="has-list">
@@ -28,12 +13,12 @@ function CarSearch({ carList, onScroll, listInnerRef, loadingInfo }) {
                 justifyContent: "center",
               }}
             >
-              {carList === null || loadingInfo ? (
-                <Load />
+              {carList === null || carList.length === 0 ? (
+                <>{!loading ? "không tìm thấy xe" : <Load />}</>
               ) : carList.length > 0 ? (
                 carList.map((car, index) => (
                   <li key={index}>
-                    <Link to="#" onClick={() => onLogin(car.id)}>
+                    <Link to={`/car-detail/${car.id}`}>
                       <div className="item-car">
                         <div className="img-car">
                           <div className="fix-img">
@@ -50,7 +35,9 @@ function CarSearch({ carList, onScroll, listInnerRef, loadingInfo }) {
                           <div className="group-line n-rating">
                             <span className="star">
                               <span className="star_rate-num">
-                                {car.totalRating}
+                                {car.totalRating > 0
+                                  ? car.totalRating
+                                  : "chưa có đánh giá "}
                               </span>
                               <div
                                 className="star-ratings"
@@ -162,7 +149,7 @@ function CarSearch({ carList, onScroll, listInnerRef, loadingInfo }) {
                   </li>
                 ))
               ) : (
-                "not found"
+                "không tìm thấy xe"
               )}
             </ul>
           </div>

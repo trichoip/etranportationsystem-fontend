@@ -19,6 +19,7 @@ import VouCher from "../components/Voucher";
 import CarBook from "./../pages/main/carRegisterMode/carBook/index";
 import CarLike from "./../pages/main/carRegisterMode/CarLike/index";
 import CarDetailBook from "../pages/main/carDetail/carDetailBook";
+import MyCarRegisterMode from "../pages/main/carRegisterMode/MyCarRegisterMode";
 
 export const mainRouter = [
   {
@@ -35,6 +36,11 @@ export const mainRouter = [
     path: "/carRegisterMode",
     exact: true,
     Component: CarRegisterMode,
+  },
+  {
+    path: "/myCarRegisterMode",
+    exact: true,
+    Component: MyCarRegisterMode,
   },
   {
     path: "/howItWork",
