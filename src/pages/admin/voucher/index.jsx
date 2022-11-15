@@ -7,21 +7,16 @@ import GetDate from "../../../components/DateRange";
 import Load from "../../../components/Load";
 import { useIsLogin } from "../../../hooks/useIsLogin";
 import styles from "../Dashboard/dashboard.module.css";
-// import Pagination from "../userManagement/pagination";
 import { postDriver } from "../../../store/actions/car.action";
 import moment from "moment";
 
 function VoucherManagement() {
   const dispatch = useDispatch();
   const { loading } = useIsLogin();
-  // const [totalPages, setTotalPages] = useState(0);
-  // const [page, setPage] = useState(1);
   const [val, setVal] = useState(10);
   const [valHai, setValHai] = useState(30);
   const [voucherList, setVoucherList] = useState(null);
   const [voucher, setVoucher] = useState({ code: "", discription: "" });
-  const [loadingInfo, setLoadingInfo] = useState(false);
-  console.log("🚀~ loadingInfo", loadingInfo);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [text, setText] = useState("");
@@ -37,15 +32,12 @@ function VoucherManagement() {
   };
   useEffect(() => {
     const getAccountInfo = async () => {
-      setLoadingInfo(true);
       axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/voucher?code=${text.trim()}`,
       })
         .then((res) => {
           setVoucherList(res.data);
-          // setTotalPages(res.data.totalPage);
-          setLoadingInfo(false);
         })
         .catch((err) => {
           console.error(err);
@@ -62,7 +54,6 @@ function VoucherManagement() {
         voucher.code,
         parseInt(val),
         parseInt(valHai),
-        voucher.discription,
         moment(startDate).format("YYYY-MM-DD"),
         moment(endDate).format("YYYY-MM-DD")
       )
@@ -151,25 +142,9 @@ function VoucherManagement() {
                   {/* <Validate errors={errors.username} /> */}
                 </div>
               </div>
-              <div className="line-form">
-                <div className="wrap-input has-ico">
-                  <i className="ic ic-lock-fill" />
-                  <input
-                    type="text"
-                    name="discription"
-                    placeholder="discription"
-                    onChange={handleChange}
-                    value={voucher.discription}
-                    required
-                  />
-                  {/* <Validate errors={errors.password} /> */}
-                </div>
-              </div>
               <div className="col-left">
                 <div className="line-form end">
-                  <label className="label">
-                    Giảm giá thuê tuần (% trên đơn giá)
-                  </label>
+                  <label className="label">Giảm giá (% trên đơn giá)</label>
                   <input
                     type="range"
                     min={0}
@@ -190,7 +165,7 @@ function VoucherManagement() {
               <div className="col-right">
                 <div className="line-form end">
                   <label className="label">
-                    Giảm giá thuê tháng (% trên đơn giá)
+                    Giảm giá tối đa (k trên đơn giá)
                   </label>
                   <input
                     type="range"
@@ -203,11 +178,11 @@ function VoucherManagement() {
                     }}
                   />
                   <span style={{ float: "right", fontSize: 14 }}>
-                    {valHai}%
+                    {valHai}k
                   </span>
                   <div className="space m" />
                   <p className="pl">
-                    <span className="note">Giảm đề xuất: 30%</span>
+                    <span className="note">Giảm giá đề xuất: 100k</span>
                   </p>
                 </div>
               </div>

@@ -19,7 +19,7 @@ import LoginModal from "../../../components/Modal/LoginModal";
 function CarDetail() {
   const dispatch = useDispatch();
   const { carId } = useParams();
-  const { isLogin, loading } = useIsLogin();
+  const { isLogin, loading, isLoginToAdmin } = useIsLogin();
   const [load, setLoad] = useState(false);
   const [carDetail, setCarDetail] = useState(null);
   const [carReview, setCarReview] = useState(null);
@@ -438,15 +438,60 @@ function CarDetail() {
                         ) : (
                           <>
                             {numDate > 0 ? (
-                              <button
-                                className="btn btn-primary btn--m"
-                                style={{
-                                  width: "100%",
-                                }}
-                                onClick={onBookCar}
-                              >
-                                <span>Đăt Xe</span>
-                              </button>
+                              <>
+                                {isLoginToAdmin === 2 ? (
+                                  <button
+                                    className="btn btn-primary btn--m"
+                                    style={{
+                                      width: "100%",
+                                      opacity: ".4",
+                                    }}
+                                    disabled
+                                  >
+                                    <span>Quản lý Không Được Đăt Xe</span>
+                                  </button>
+                                ) : (
+                                  <>
+                                    {isLogin.id === carDetail.account.id ? (
+                                      <button
+                                        className="btn btn-primary btn--m"
+                                        style={{
+                                          width: "100%",
+                                          opacity: ".4",
+                                        }}
+                                        disabled
+                                      >
+                                        <span>Xe Của Bạn</span>
+                                      </button>
+                                    ) : (
+                                      <>
+                                        {carDetail.status !== "ACTIVE" ? (
+                                          <button
+                                            className="btn btn-primary btn--m"
+                                            style={{
+                                              width: "100%",
+                                              opacity: ".4",
+                                            }}
+                                            disabled
+                                          >
+                                            <span>Xe đang chờ duyệt</span>
+                                          </button>
+                                        ) : (
+                                          <button
+                                            className="btn btn-primary btn--m"
+                                            style={{
+                                              width: "100%",
+                                            }}
+                                            onClick={onBookCar}
+                                          >
+                                            <span>Đăt Xe</span>
+                                          </button>
+                                        )}
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </>
                             ) : (
                               <button
                                 className="btn btn-primary btn--m"

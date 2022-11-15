@@ -5,29 +5,45 @@ import Load from "../../../../components/Load";
 import { NotificationContainer } from "react-notifications";
 import { ModalSettingProfile } from "../../../../components/Modal/ModalSettingProfile";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
-import { getDriver, getUser } from "../../../../store/actions/user.action";
+import { getDriver } from "../../../../store/actions/user.action";
 import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import { useState } from "react";
 import { ModalUploadAvatar } from "../../../../components/Modal/ModalUploadAvatar";
 import { ModalDriver } from "../../../../components/Modal/ModalDriver";
+import axios from "axios";
 
 function Profile() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { isLogin } = useIsLogin();
   const [reload, setReload] = useState(false);
+  const [users, setUsers] = useState(null);
   useEffect(
     () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      dispatch(getUser(id));
       dispatch(getDriver(id));
     },
     // eslint-disable-next-line
     [id, reload]
   );
+  useEffect(() => {
+    const getAccountInfo = async () => {
+      axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/account/${id}`,
+      })
+        .then((res) => {
+          setUsers(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+    getAccountInfo();
+    // eslint-disable-next-line
+  }, [id, reload]);
   const { loading } = useSelector((state) => state.common);
-  const { users, driver } = useSelector((state) => state.user);
-
+  const { driver } = useSelector((state) => state.user);
   const onUpdateProfile = () => {
     dispatch({
       type: OPEN_MODAL,

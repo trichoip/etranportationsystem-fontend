@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CarSearch from "./CarSearch";
 import FilterCar from "./FilterCar";
 import NavSearch from "./NavSearch";
 
 function Search() {
   const listInnerRef = useRef();
-  // const { cityId } = useSelector((state) => state.user);
-  const [cityId, setCityId] = useState(0);
+  const { cityId } = useSelector((state) => state.user);
+  const [cityIds, setCityIds] = useState(cityId);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
@@ -34,7 +34,7 @@ function Search() {
           url: `${process.env.REACT_APP_API_URL}/car/search?page=${page}&size=6`,
           data: {
             city: {
-              id: cityId,
+              id: cityIds,
             },
             street: "",
             sortPriceType: priceType,
@@ -63,7 +63,7 @@ function Search() {
     },
     // eslint-disable-next-line
     [
-      cityId,
+      cityIds,
       page,
       priceType,
       features,
@@ -98,11 +98,11 @@ function Search() {
       }}
     >
       <NavSearch
-        setCityId={setCityId}
+        setCityIds={setCityIds}
         setPage={setPage}
         setCarList={setCarList}
       />
-      {cityId !== 0 ? (
+      {cityIds !== 0 ? (
         <CarSearch
           carList={carList}
           onScroll={onScroll}

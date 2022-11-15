@@ -59,7 +59,7 @@ function CardCarBook({ car, setHandleGrant }) {
           )}
           <div className="car-img">
             <div className="fix-img">
-              <Link to={`/book-detail/${car.book_Id}`}>
+              <Link to={`/car-detail/${car.car_Id}`}>
                 <img src={car.carImage} alt={car.carName} />
               </Link>
             </div>

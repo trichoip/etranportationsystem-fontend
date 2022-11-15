@@ -396,7 +396,6 @@ export const postDriver = (
   code,
   percentage,
   maxDiscount,
-  discription,
   startDate,
   endDate
 ) => {
@@ -409,7 +408,7 @@ export const postDriver = (
         code,
         percentage,
         maxDiscount,
-        discription,
+        discription: "",
         startDate,
         endDate,
       },
@@ -419,7 +418,7 @@ export const postDriver = (
         dispatch(stopLoading());
       })
       .catch((err) => {
-        NotificationManager.error(err.response.data.message);
+        NotificationManager.error("chưa nhập mã code khuyến mãi");
         dispatch(stopLoading());
       });
   };

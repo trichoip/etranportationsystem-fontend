@@ -78,10 +78,16 @@ const ModalBookCar = ({
   });
   const onSuccess = (details, data) => {
     if (details.status === "COMPLETED") {
+      const totalCar =
+        numDate > 6
+          ? numDate > 29
+            ? carDetail.price * numDate * priceMonth * priceVouCher
+            : carDetail.price * numDate * priceWeek * priceVouCher
+          : carDetail.price * numDate * priceVouCher;
       dispatch(
         postBookCar(
           carDetail.price,
-          carDetail.price * numDate,
+          totalCar,
           moment(startDate).format("YYYY-MM-DD"),
           moment(endDate).format("YYYY-MM-DD"),
           voucher.id,
@@ -96,6 +102,9 @@ const ModalBookCar = ({
     closeModalBook();
   };
   const priceVouCher = (100 - voucher.percentage) / 100;
+  const priceWeek = (100 - carDetail.saleWeek) / 100;
+  const priceMonth = (100 - carDetail.saleMonth) / 100;
+
   const totalPay = parseInt((carDetail.price * numDate * priceVouCher) / 24);
   const closeModalBook = () => {
     closeModal();
@@ -360,7 +369,12 @@ const ModalBookCar = ({
                                   <p>Giá giảm theo tháng</p>
                                 </p>
                                 <span>
-                                  <strong>30 %</strong>
+                                  <span>
+                                    {carDetail.price * numDate -
+                                      carDetail.price * numDate * priceMonth}
+                                    đ
+                                  </span>{" "}
+                                  x<strong>{carDetail.saleMonth} %</strong>
                                 </span>
                               </div>
                             ) : (
@@ -369,7 +383,12 @@ const ModalBookCar = ({
                                   <p>Giá giảm theo tuần</p>
                                 </p>
                                 <span>
-                                  <strong>10 %</strong>
+                                  <span>
+                                    {carDetail.price * numDate -
+                                      carDetail.price * numDate * priceWeek}
+                                    đ
+                                  </span>{" "}
+                                  x<strong>{carDetail.saleWeek} %</strong>
                                 </span>
                               </div>
                             )}
@@ -398,7 +417,33 @@ const ModalBookCar = ({
                           <span>
                             <strong>
                               <span>
-                                {carDetail.price * numDate * priceVouCher}đ
+                                {numDate > 6 ? (
+                                  <>
+                                    {numDate > 29 ? (
+                                      <>
+                                        {" "}
+                                        {carDetail.price *
+                                          numDate *
+                                          priceMonth *
+                                          priceVouCher}
+                                        đ
+                                      </>
+                                    ) : (
+                                      <>
+                                        {" "}
+                                        {carDetail.price *
+                                          numDate *
+                                          priceWeek *
+                                          priceVouCher}
+                                        đ
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <>
+                                    {carDetail.price * numDate * priceVouCher}đ
+                                  </>
+                                )}
                               </span>
                             </strong>
                           </span>

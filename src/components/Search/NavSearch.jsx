@@ -1,7 +1,7 @@
 import React from "react";
 import { street } from "../Modal/vietnam-streetV2";
 
-function NavSearch({ setCityId, setPage, setCarList }) {
+function NavSearch({ setCityIds, setPage, setCarList }) {
   return (
     <>
       <div
@@ -15,7 +15,7 @@ function NavSearch({ setCityId, setPage, setCarList }) {
               <select
                 name="cityId"
                 onChange={(e) => {
-                  setCityId(e.target.value);
+                  setCityIds(e.target.value);
                   setPage(1);
                   setCarList([]);
                 }}
