@@ -42,8 +42,7 @@ function MyCar() {
                     <option value="">Tất cả</option>
                     <option value="ACTIVE">Đang hoạt động</option>
                     <option value="PENDING_APPROVAL">Đang chờ duyệt</option>
-                    <option value="DENIED">Đã bị từ chối </option>
-                    <option value="PAUSE">Đang tạm ngừng</option>
+                    <option value="PAUSE">Đã bị từ chối</option>
                   </select>
                 </div>
               </div>
@@ -61,15 +60,15 @@ function MyCar() {
               <>
                 {statusCar === ""
                   ? carByUser.map((car, index) => (
-                      <Card
-                        car={car}
-                        setHandleGrant={setHandleGrant}
-                        key={index}
-                      />
-                    ))
+                    <Card
+                      car={car}
+                      setHandleGrant={setHandleGrant}
+                      key={index}
+                    />
+                  ))
                   : carByUser
-                      .filter((car) => car.status === statusCar)
-                      .map((car, index) => <Card car={car} key={index} />)}
+                    .filter((car) => car.status === statusCar)
+                    .map((car, index) => <Card car={car} key={index} />)}
               </>
             ) : (
               <div
