@@ -108,7 +108,11 @@ function FilterCar({
                     maxValue={3000}
                     minValue={0}
                     value={val}
-                    onChange={setVal}
+                    onChange={(value) => {
+                      setVal(value);
+                      setPage(1);
+                      setCarList([]);
+                    }}
                   />
                   <span
                     className="range-slider__value2"
