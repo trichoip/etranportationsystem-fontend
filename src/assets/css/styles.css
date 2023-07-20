@@ -120,7 +120,80 @@ html {
   max-height: 60px;
   border: 1px solid #4a4a4a;
 }
+.btnCheckin {
+  font-family: inherit;
+  font-size: 18px;
+  background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
+  color: white;
+  padding: 0.8em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
 
+.btnCheckin:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btnCheckin:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btnCheckin span {
+  width: 180px;
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s;
+}
+
+.btnCheckin svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+  transition: all 0.3s;
+}
+
+.btnCheckin .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 0.5em;
+  transition: all 0.3s;
+}
+
+.btnCheckin:hover .svg-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.addEm {
+ border: 2px solid #24b4fb;
+ background-color: #24b4fb;
+ border-radius: 0.9em;
+ padding: 0.8em 1.2em 0.8em 1em;
+ transition: all ease-in-out 0.2s;
+ font-size: 16px;
+}
+
+.addEm span {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #fff;
+ font-weight: 600;
+}
+
+.addEm:hover {
+ background-color: #0071e2;
+}
 .popup-bubble-content,
 .popup-bubble-content.popup-car-gps {
   position: absolute;

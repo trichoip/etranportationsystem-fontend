@@ -30,7 +30,12 @@ export function useIsLogin() {
   //     : admin.roles.find((role) => {
   //         return `${role}`;
   //       });
-  const adminRole = admin == null ? "USER" : admin.roles.length;
+  const adminRole =
+    admin == null ? "USER" : admin.roles.some((role) => role.name === "ADMIN");
+  const manageRole =
+    admin == null
+      ? "USER"
+      : admin.roles.some((role) => role.name === "MANAGER");
 
   const avatar = users === null || users.avatar === null ? "" : users.avatar;
   return {
@@ -39,5 +44,6 @@ export function useIsLogin() {
     loading,
     avatar,
     isLoginToAdmin: adminRole,
+    manageRole
   };
 }

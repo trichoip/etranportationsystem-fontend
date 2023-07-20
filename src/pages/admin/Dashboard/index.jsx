@@ -1,12 +1,30 @@
 import React from "react";
-import { FaUserCog, FaCarSide, FaFileInvoiceDollar } from "react-icons/fa";
+import {
+  FaUserCog,
+  FaCarSide,
+  FaFileInvoiceDollar,
+  FaCalendarDay,
+} from "react-icons/fa";
 import Tabs from "./tab/tabs";
 import CarManagement from "../carManagement";
 import UserManagement from "../userManagement";
 import VoucherManagement from "../voucher/";
+import Timekeeping from "../timekeeping";
+import { useIsLogin } from "../../../hooks/useIsLogin";
+import TimekeepingManager from "../timekeepingManage";
 
 function Dashboard() {
-  return (
+  const { manageRole } = useIsLogin();
+  return manageRole ? (
+    <Tabs>
+      <div label="Timekeeping" Icon={FaCalendarDay}>
+        <TimekeepingManager />
+      </div>
+      <div label="" Icon={FaFileInvoiceDollar}>
+       
+      </div>
+    </Tabs>
+  ) : (
     <Tabs>
       <div label="User Management" Icon={FaUserCog}>
         <UserManagement />
@@ -16,6 +34,9 @@ function Dashboard() {
       </div>
       <div label="Voucher" Icon={FaFileInvoiceDollar}>
         <VoucherManagement />
+      </div>
+      <div label="Timekeeping" Icon={FaCalendarDay}>
+        <Timekeeping />
       </div>
     </Tabs>
   );

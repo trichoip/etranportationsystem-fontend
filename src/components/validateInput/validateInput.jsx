@@ -117,3 +117,27 @@ export function validateAddCar(values) {
   }
   return errors;
 }
+export function validateAddEm(values) {
+  let errors = {};
+
+  return errors;
+}
+export function validateAddEms(values) {
+  let errors = {};
+  if (!values.name) {
+    errors.name = "required";
+  }
+  if (!values.username) {
+    errors.username = "required";
+  }
+  if (!values.password) {
+    errors.password = "required";
+  }
+  if (!values.email) {
+    errors.email = "required";
+  }
+  if (!values.phone) {
+    errors.phone = "required";
+  }
+  return errors;
+}

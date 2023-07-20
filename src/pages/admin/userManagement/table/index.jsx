@@ -1,23 +1,24 @@
 import { FcHighPriority } from "react-icons/fc";
-import { MdAdminPanelSettings } from "react-icons/md";
+// import { MdAdminPanelSettings } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import Load from "../../../../components/Load";
 import BlockUserModal from "../../../../components/Modal/BlockUserModal";
 import DriverUserModal from "../../../../components/Modal/DriverUserModal";
-import GrantUserModal from "../../../../components/Modal/GrantUserModal";
+// import GrantUserModal from "../../../../components/Modal/GrantUserModal";
 import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import styles from "../../Dashboard/dashboard.module.css";
+import UpEmModal from "../../../../components/Modal/UpEmModal";
 
-function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
+function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant, CheckManage }) {
   const dispatch = useDispatch();
-  const onGrantUser = (id, role) => {
-    dispatch({
-      type: OPEN_MODAL,
-      payload: (
-        <GrantUserModal id={id} role={role} setHandleGrant={setHandleGrant} />
-      ),
-    });
-  };
+  // const onGrantUser = (id, role) => {
+  //   dispatch({
+  //     type: OPEN_MODAL,
+  //     payload: (
+  //       <GrantUserModal id={id} role={role} setHandleGrant={setHandleGrant} />
+  //     ),
+  //   });
+  // };
   const onBlockUser = (id, status) => {
     dispatch({
       type: OPEN_MODAL,
@@ -42,6 +43,12 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
       ),
     });
   };
+    const onUpEm = (listUser) => {
+      dispatch({
+        type: OPEN_MODAL,
+        payload: <UpEmModal listUser={listUser} />,
+      });
+    };
   return (
     <table>
       <thead>
@@ -49,10 +56,10 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
           <th style={{ textAlign: "left", borderRadius: "30px 0 0 30px" }}>
             User Name
           </th>
-          <th style={{ width: 270 }}>Driving</th>
-          <th style={{ width: 85 }}>Grant</th>
-          <th style={{ width: 100, borderRadius: "0px 30px 30px 0px" }}>
-            Block
+          <th>Driving</th>
+          {/* <th style={{ width: 85 }}>Grant</th> */}
+          <th style={{ borderRadius: "0px 30px 30px 0px" }}>
+            Action
           </th>
         </tr>
       </thead>
@@ -134,7 +141,7 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                     </>
                   )}
                 </td>
-                <td>
+                {/* <td>
                   {listUser.roles?.length === 2 ? (
                     <button>
                       <MdAdminPanelSettings
@@ -154,23 +161,38 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                       />
                     </button>
                   )}
-                </td>
-                <td>
-                  {listUser.status === "ACTIVE" ? (
+                </td> */}
+                {CheckManage ? (
+                  <td>
                     <button
-                      style={{ opacity: "50%" }}
-                      onClick={() => onBlockUser(listUser.id, listUser.status)}
+                      className="btn btn-primary btn--m"
+                      onClick={() => onUpEm(listUser)}
                     >
-                      <FcHighPriority />
+                      UPDATE
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => onBlockUser(listUser.id, listUser.status)}
-                    >
-                      <FcHighPriority />
-                    </button>
-                  )}
-                </td>
+                  </td>
+                ) : (
+                  <td>
+                    {listUser.status === "ACTIVE" ? (
+                      <button
+                        style={{ opacity: "50%" }}
+                        onClick={() =>
+                          onBlockUser(listUser.id, listUser.status)
+                        }
+                      >
+                        <FcHighPriority />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          onBlockUser(listUser.id, listUser.status)
+                        }
+                      >
+                        <FcHighPriority />
+                      </button>
+                    )}
+                  </td>
+                )}
               </tr>
             );
           })

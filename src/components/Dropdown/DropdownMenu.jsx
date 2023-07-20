@@ -41,7 +41,7 @@ const DropdownMenu = ({ user, isLoginToAdmin }) => {
         onEnter={calcHeight}
       >
         <div className="menu">
-          {isLoginToAdmin === 2 && (
+          {isLoginToAdmin && (
             <Link to="/dashboard" className="menu-item">
               <span className="icon-button">
                 <HiOutlineShieldCheck />

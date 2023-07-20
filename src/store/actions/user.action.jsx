@@ -13,6 +13,7 @@ import {
   CAR_BY_USER_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
+import { CLOSE_MODAL } from "../constants/modal.const";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -366,6 +367,121 @@ export const postBookCar = (
       .catch((err) => {
         dispatch(stopLoading());
         NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+export const putTimeEm = (values, timeIn, timeOut, listUser) => {
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).jwtToken.token : "";
+  return (dispatch) => {
+    axios({
+      method: "PUT",
+      url: `${API_URL}/management/timekeeping`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        id: listUser.id,
+        timein: timeIn + ":00",
+        timeout: timeOut + ":00",
+        date: listUser.date,
+        totalWorkingHours: listUser.totalWorkingHours,
+        minutesLate: listUser.minutesLate,
+        minutesOutEarly: listUser.minutesOutEarly,
+        status_timein: listUser.status_timein,
+        status_timeout: listUser.status_timeout,
+        reason: values.reason,
+        comment: values.comment,
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: CLOSE_MODAL,
+        });
+        NotificationManager.success("success");
+      })
+      .catch((err) => {
+        NotificationManager.error("error");
+      });
+  };
+};
+
+export const postEm = (values, user) => {
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).jwtToken.token : "";
+  return (dispatch) => {
+    axios({
+      method: "POST",
+      url: `${API_URL}/management/employee`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        id: 0,
+        name: values.name,
+        username: values.username,
+        password: values.password,
+        gender: user?.gender ? user?.gender : "FEMALE",
+        birthDate: user?.birthDate ? user?.birthDate : "2023-07-12",
+        email: values.email,
+        phone: values.phone,
+        avatar: "",
+        thumnail: "",
+        department: {
+          id: 1,
+          name: "",
+        },
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: CLOSE_MODAL,
+        });
+        NotificationManager.success("success");
+      })
+      .catch((err) => {
+        NotificationManager.error("error");
+      });
+  };
+};
+
+export const putEm = (values, user, listUser) => {
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).jwtToken.token : "";
+  return (dispatch) => {
+    axios({
+      method: "PUT",
+      url: `${API_URL}/management/employee/${listUser.id}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        name: values.name || listUser.name,
+        username: values.username || listUser.username,
+        gender: user?.gender || listUser.gender,
+        birthDate: user?.birthDate || listUser.birthDate,
+        email: values.email || listUser.email,
+        phone: values.phone || listUser.phone,
+        avatar: "",
+        thumnail: "",
+        department: {
+          id: 1,
+          name: "",
+        },
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: CLOSE_MODAL,
+        });
+        NotificationManager.success("success");
+      })
+      .catch((err) => {
+        NotificationManager.error("error");
       });
   };
 };
