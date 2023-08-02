@@ -20,7 +20,7 @@ function Dashboard() {
       <div label="Timekeeping" Icon={FaCalendarDay}>
         <TimekeepingManager />
       </div>
-      <div label="" Icon={FaFileInvoiceDollar}>
+      <div label="User" Icon={FaFileInvoiceDollar}>
        
       </div>
     </Tabs>
